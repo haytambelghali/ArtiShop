@@ -35,6 +35,7 @@ npm test
 | Méthode | Route | Description |
 |---|---|---|
 | GET | `/health` | Vérifie que l'application répond |
+| GET | /api/delivery?city=Rabat | Frais de livraison pour une ville |
 | GET | `/api/products` | Liste des produits (`?category=Poterie` pour filtrer) |
 | GET | `/api/products/:id` | Détail d'un produit |
 | GET | `/api/cart` | Contenu du panier et total |
