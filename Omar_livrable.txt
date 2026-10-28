@@ -1,0 +1,94 @@
+LIVRABLE - TP 1 GIT ARTISHOP
+Rôle : Membre 2 Omar Chekroun
+
+1. LIEN DU FORK DE L'ÉQUIPE (origin) : 
+https://github.com/haytambelghali/ArtiShop
+
+2. SORTIE DU GRAPHE GIT (git log --oneline --graph --all --decorate) :
+PS C:\Users\omarc\ArtiShop> git log --oneline --graph --all
+* b5cee87 (HEAD -> feature/avis, origin/main, origin/HEAD, main) style: modification de la couleur principale terre
+* 62ee5b5 Correction d'une phrase dans le README
+*   83a7390 Résolution conflit RAMADAN20
+|\  
+| * 6f48a9a (origin/fix/taux-ramadan) Modif taux RAMADAN20 a 25%
+* | a408509 Merge main
+|\| 
+| *   abed66e Merge branch 'feature/livraison'
+| |\  
+| | * 9d1ac83 (origin/feature/livraison) feat(livraison): frais de livraison par ville
+| | * 5333466 feat(livraison): frais de livraison par ville
+:
+
+========================================================================
+RÉPONSES AUX QUESTIONS DU TP
+========================================================================
+
+Exercice 1
+
+Q1.1 : Dans quel fichier les remotes sont-ils enregistrés ?
+
+Réponse : Les configurations des remotes sont enregistrées dans le fichier caché ".git/config" situé à la racine du dépôt local.
+
+Q1.2 : Pourquoi le push vers upstream est-il refusé ?
+
+Réponse : Le remote "upstream" correspond au dépôt de l'enseignante. Les étudiants n'ont que les droits de lecture sur ce dépôt, et non les droits d'écriture, ce qui empêche d'y pousser (push) des modifications.
+
+Exercice 2
+
+Q2.1 : Quel remote existe déjà dans votre clone, et pourquoi ? upstream y figure-t-il ?
+
+Réponse : Le remote "origin" existe par défaut car il est créé automatiquement lors de la commande "git clone" pour pointer vers l'URL clonée (le fork de l'équipe). Le remote "upstream" n'y figure pas par défaut, il faut l'ajouter manuellement.
+
+Exercice 3
+
+Q3.1 : À quelles deux commandes équivaut git pull ?
+
+Réponse : "git pull" équivaut à exécuter un "git fetch" (récupération des données distantes) suivi immédiatement d'un "git merge" (fusion des données récupérées dans la branche courante).
+
+Q3.2 : Pourquoi git fetch est-il qualifié de commande « sûre » ?
+
+Réponse : "git fetch" est sûre car elle télécharge uniquement l'historique et les nouvelles branches depuis le serveur distant, sans jamais modifier le répertoire de travail actuel ni altérer les branches locales.
+
+Exercice 4 
+
+Question : Quel risque court-on en commitant dans l'état "detached HEAD" ?
+
+Réponse : Les commits réalisés en "detached HEAD" ne sont rattachés à aucune branche. Si on change de branche par la suite, ces commits deviendront orphelins (difficiles à retrouver) et risquent d'être supprimés définitivement par le ramasse-miettes (garbage collector) de Git.
+
+Exercice 5
+
+Q5.1 : Pourquoi Git n'a-t-il pas créé de commit de fusion, ni à l'étape 2 ni à l'étape 6 ?
+
+Réponse : Git a pu réaliser une fusion de type "fast-forward" (avance rapide). Comme aucun nouveau commit n'avait divergé entre les deux branches au moment de la fusion, Git s'est contenté d'avancer le pointeur de la branche sans avoir besoin de créer un nouveau commit de fusion (merge commit).
+
+Exercice 6
+
+Q6.1 : Quels sont les trois commits utilisés par cette fusion à 3 voies ?
+
+Réponse : Le commit actuel (HEAD) de la branche de destination (main), le commit de la branche source (feature/livraison), et leur ancêtre commun le plus récent.
+
+Q6.2 : Membre 2 et Membre 3 ont tous deux modifié src/app.js. Pourquoi Git a-t-il pu fusionner sans conflit ?
+
+Réponse : Git a fusionné automatiquement car les modifications portaient sur des lignes différentes du même fichier. Il n'y avait donc pas de chevauchement contradictoire entre les changements.
+
+Exercice 7
+
+Q7.1 : Pourquoi une fusion fast-forward ne produit-elle jamais de conflit ?
+
+Réponse : Parce qu'une fusion fast-forward ne se produit que lorsque l'historique est strictement linéaire. Il n'y a pas de modifications parallèles ou divergentes à comparer, donc aucune possibilité de conflit.
+
+Exercice 9
+
+Q9.1 : Qu'aurait donné git pull --no-rebase ?
+
+Réponse : Au lieu de réécrire l'historique pour placer mes commits après ceux distants, un "git pull --no-rebase" aurait créé un commit de fusion supplémentaire (merge commit) liant mon travail local (changement de couleur css) et le travail récupéré du serveur.
+
+Q9.2 : Quelle est la « règle d'or » du rebase ?
+
+Réponse : Ne jamais rebaser une branche publique (c'est-à-dire une branche qui a déjà été poussée sur un serveur partagé et sur laquelle d'autres développeurs pourraient avoir basé leur travail). Le rebase réécrit l'historique, ce qui sèmerait la confusion chez les autres.
+
+Exercice 11
+
+Q11.1 : Pourquoi utiliser --force-with-lease plutôt que --force ? Sur quelles branches ne force-t-on jamais ?
+
+Réponse : "--force-with-lease" est plus sûr car il vérifie l'état de la branche distante avant d'écraser. Si un collègue a poussé du travail entre-temps, la commande échouera pour éviter d'écraser son travail, contrairement à "--force" qui écrase aveuglément. On ne force **jamais** un push sur une branche principale et partagée (comme "main" ou "master").
