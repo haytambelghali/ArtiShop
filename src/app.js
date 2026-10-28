@@ -1,12 +1,14 @@
 const express = require("express");
 const path = require("path");
 const products = require("./data/products");
+const promoCodes = require("./data/promos");
 
 // Crée une nouvelle application avec un panier vide.
 // Une fonction plutôt qu'une variable globale : chaque test part d'un état propre.
 function createApp() {
   const app = express();
   const cart = new Map(); // productId -> quantity
+  const appliedCodes = []; // codes promo appliqués
 
   app.use(express.json());
   app.use(express.static(path.join(__dirname, "..", "public")));
@@ -46,8 +48,10 @@ function createApp() {
         subtotal: product.price * quantity
       };
     });
-    const total = items.reduce((sum, item) => sum + item.subtotal, 0);
-    return { items, total };
+    const subtotal = items.reduce((sum, item) => sum + item.subtotal, 0);
+    let total = subtotal;
+    for (const code of appliedCodes) total = total * (1 - promoCodes[code]);
+    return { items, subtotal, codes: appliedCodes, total: Math.round(total * 100) / 100 };
   }
 
   app.get("/api/cart", (req, res) => {
@@ -83,6 +87,16 @@ function createApp() {
       return res.status(404).json({ error: "Ce produit n'est pas dans le panier" });
     }
     cart.delete(productId);
+    res.json(cartSummary());
+  });
+
+  // Appliquer un code promo : { "code": "RAMADAN20" }
+  app.post("/api/cart/promo", (req, res) => {
+    const code = String(req.body.code || "").toUpperCase();
+    if (promoCodes[code] === undefined) {
+      return res.status(400).json({ error: "Code promo invalide" });
+    }
+    appliedCodes.push(code);
     res.json(cartSummary());
   });
 
