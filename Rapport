@@ -1,0 +1,90 @@
+Maîtrise technologique et pratique : Réponses aux questions du TP
+
+Exercice 1 (Q1.1 - Q1.2) :
+
+Q1.1 : Dans quel fichier les remotes sont-ils enregistrés ?
+Réponse : Les remotes sont enregistrés dans le fichier caché .git/config de votre répertoire local.
+
+Q1.2 : Pourquoi le push vers upstream est-il refusé ?
+Réponse : Le push vers upstream est refusé car ce dépôt de référence (celui de l'enseignante) est en lecture seule pour les étudiants ; nous n'avons pas les droits d'écriture dessus.
+
+Exercice 2 (Q2.1) :
+
+Q2.1 : Quel remote existe déjà dans votre clone, et pourquoi ? upstream y figure-t-il ?
+Réponse : Le remote qui existe déjà est origin. Git le crée automatiquement lors de la commande git clone pour pointer vers le dépôt cloné (le fork). Le remote upstream n'y figure pas par défaut, il faut l'ajouter manuellement.
+
+Exercice 3 (Q3.1 - Q3.2) :
+
+Q3.1 : À quelles deux commandes équivaut git pull ?
+Réponse : git pull équivaut à git fetch (télécharger les nouveautés) suivi de git merge (fusionner).
+
+Q3.2 : Pourquoi git fetch est-il qualifié de commande « sûre » ?
+Réponse : Car git fetch se contente de télécharger l'historique depuis le serveur distant sans toucher à vos fichiers locaux ni modifier votre branche de travail (pas de fusion automatique).
+
+Exercice 4 (Branches et HEAD détachée) :
+
+(Question de l'étape 1) : Pourquoi les branches qui apparaissent sont différentes (entre git branch et git branch -a) ?
+Réponse : La commande git branch n'affiche que les branches locales. En revanche, git branch -a affiche les branches locales et les branches distantes (celles sur le serveur origin).
+
+(Erreur fréquente n° 1) : Quel risque court-on en commitant dans cet état (detached HEAD) ?
+Réponse : Un commit créé en "detached HEAD" n'est rattaché à aucune branche. Si l'on change de branche par la suite, ce commit deviendra "orphelin" et finira par être définitivement supprimé par le nettoyeur de Git (Garbage Collector).
+
+Exercice 5 (Q5.1) :
+
+Q5.1 : Pourquoi Git n'a-t-il pas créé de commit de fusion, ni à l'étape 2 ni à l'étape 6 ?
+Réponse : Aucune création de commit de fusion lors du fast-forward car l'historique est parfaitement linéaire. La branche cible n'a reçu aucune nouvelle modification depuis la création de la branche source. Git se contente donc d'avancer le pointeur vers le dernier commit, sans avoir à combiner des codes différents.
+
+Exercice 6 (Q6.1 - Q6.2) :
+
+Q6.1 : Quels sont les trois commits utilisés par cette fusion ? Utilisez git merge-base main feature/livraison pour le vérifier.
+Réponse : Les 3 commits utilisés par Git pour faire la fusion sont :
+
+Le commit actuel sur main (qui contient déjà le travail du Membre 2 sur les codes promo).
+
+Le commit sur ma branche feature/livraison (avec mes modifications pour les frais de livraison).
+
+L'ancêtre commun (le commit à partir duquel la branche feature/livraison a été créée).
+On le vérifie en tapant git merge-base main feature/livraison, qui nous donne l'identifiant (hash) de cet ancêtre commun. Git compare ensuite ces 3 points pour combiner les modifications.
+
+Q6.2 : Membre 2 et Membre 3 ont tous deux modifié src/app.js. Pourquoi Git a-t-il pu fusionner sans conflit ?
+Réponse : Même si le Membre 2 et moi avons tous les deux retouché src/app.js, Git a géré la fusion tout seul sans bloquer car on a modifié des endroits différents du fichier :
+
+Le Membre 2 est intervenu au niveau des codes promo et du calcul du panier.
+
+De mon côté, j'ai ajouté la route des livraisons juste en dessous de la route /health.
+Comme les lignes modifiées ne se chevauchent pas, Git sait combiner le code automatiquement sans créer de conflit.
+
+Exercice 7 (Q7.1) :
+
+Q7.1 : Pourquoi une fusion fast-forward ne produit-elle jamais de conflit ?
+Réponse : Parce que l'historique est parfaitement linéaire. La branche cible n'a reçu aucune nouvelle modification depuis la création de la branche source. Git se contente donc d'avancer le pointeur vers le dernier commit, sans avoir à combiner des codes différents.
+
+Exercice 8 (Suppression de branches) :
+
+(Question de l'étape 3) : Ces branches existent-elles encore chez upstream ?
+Réponse : Oui, elles existent encore chez upstream. Les commandes de suppression n'ont effacé les branches que sur le clone local et sur le fork de l'équipe (origin). L'équipe n'a pas les droits pour supprimer les branches sur le dépôt original de l'enseignante (upstream).
+
+Exercice 9 (Q9.1 - Q9.2) :
+
+Q9.1 : Qu'aurait donné git pull --no-rebase ?
+Réponse : Git aurait effectué une fusion standard (merge) et créé automatiquement un commit de fusion, ce qui aurait rendu l'historique moins linéaire (apparition de fourches dans le graphe).
+
+Q9.2 : Quelle est la « règle d'or » du rebase ?
+Réponse : Il ne faut jamais faire de rebase sur des commits qui ont déjà été poussés sur un dépôt public ou partagés avec d'autres collaborateurs (pour éviter de réécrire un historique que d'autres personnes utilisent déjà).
+
+Collaboration et dynamique d'équipe
+Le travail en équipe en temps réel a mis en lumière l'importance d'une communication fluide et structurée :
+
+Coordination et défis de synchronisation : Les échanges au sein du groupe ont été essentiels pour anticiper les divergences entre les branches de fonctionnalités (feature/promo, feature/livraison) et le tronc commun (main), évitant ainsi des blocages majeurs lors des fusions et des pushs simultanés sur origin.
+
+Détail du travail individuel et des rôles de chaque membre
+
+Membre 1 (Haytam Belghali - Ops / Administrateur du fork) : J'ai assuré la mise en place initiale du projet en forkant le dépôt de l'enseignante sur GitHub (en veillant à ne pas copier uniquement la branche main pour récupérer les branches feature) et en configurant les accès pour inviter toute l'équipe en tant que collaborateurs. Tout au long du TP, j'ai géré la synchronisation continue avec le dépôt upstream (via git fetch upstream et git merge upstream/main) pour maintenir le fork à jour, et j'ai clôturé la partie technique en créant et poussant le tag annoté v1.1.0 sur le dépôt distant origin.
+
+Membre 2 (Omar Chekroun) : Il a récupéré la branche feature/promo, l'a mise à jour, et a créé le fichier src/data/promos.js intégrant les codes de réduction (BIENVENUE10 et RAMADAN20). Il a ensuite modifié src/app.js pour ajouter la logique et la route POST /api/cart/promo permettant d'appliquer les remises. Après avoir validé les tests et fusionné sa branche (en mode fast-forward) dans main, il a également géré la suppression propre de sa branche de travail, et a expérimenté les commandes de rebase (git pull --rebase) lors de l'exercice 9.
+
+Membre 3 (Anas Bouroumana) : Il a pris en charge la branche feature/livraison pour implémenter les frais de transport par ville. Il a créé le fichier src/data/delivery.js listant les tarifs (Casablanca, Rabat, Marrakech, Fes) et a ajouté la route GET /api/delivery dans src/app.js. Il a ensuite fusionné son travail dans main via une fusion à 3 voies, s'assurant que tous les tests unitaires restaient au vert avant de pousser les modifications sur l'origin et de supprimer sa branche.
+
+Membre 4 (Yassine Agourd) : Il a validé la qualité de l'application en ajoutant la section de recette (QA) dans le README.md et en vérifiant l'exécution des tests (npm test). Il a également joué un rôle clé dans la simulation des scénarios complexes, notamment en créant la branche fix/taux-ramadan pour modifier le taux de réduction à 25% à la suite d'un faux e-mail marketing, ce qui a provoqué volontairement un conflit de fusion avec le travail du Membre 2.
+
+Membre 5 (Hatim Qannouch) : Il a officié comme l'arbitre fonctionnel de l'équipe. Lors du conflit sur le taux de la promotion du Ramadan (divergence entre 25% introduits par le QA et 20% validés par le front-end), il a tranché en faveur du taux validé de 20%, permettant au groupe de résoudre les marqueurs de conflit, de valider le code et de finaliser l'intégration sur la branche principale main.
