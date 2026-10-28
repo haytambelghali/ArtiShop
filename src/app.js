@@ -18,6 +18,17 @@ function createApp() {
     res.json({ status: "ok" });
   });
 
+	  // Frais de livraison : /api/delivery?city=Rabat
+  const deliveryFees = require("./data/delivery");
+  app.get("/api/delivery", (req, res) => {
+    const fee = deliveryFees[req.query.city];
+    if (fee === undefined) {
+      return res.status(404).json({ error: "Ville non desservie" });
+    }
+    res.json({ city: req.query.city, fee });
+  });
+
+
   // Catalogue, avec filtre optionnel par catégorie : /api/products?category=Poterie
   app.get("/api/products", (req, res) => {
     const { category } = req.query;
