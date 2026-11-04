@@ -55,7 +55,7 @@ const products = [
     category: "Poterie",
     price: 280,
     stock: 4,
-    description: "Plateau artisanal en zellig fais en main."
+    description: "Plateau artisanal en zellig fais maison."
   }
 ];
 
