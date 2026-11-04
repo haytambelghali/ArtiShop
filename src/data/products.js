@@ -48,6 +48,14 @@ const products = [
     price: 45,
     stock: 50,
     description: "Savon noir traditionnel à l'huile d'olive et à l'eucalyptus."
+  },
+  {
+    id: 7,
+    name: "Plateau en zellige de Fes",
+    category: "Poterie",
+    price: 280,
+    stock: 4,
+    description: "Plateau artisanal en zellig fais en main."
   }
 ];
 
