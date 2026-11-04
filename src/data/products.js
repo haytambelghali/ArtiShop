@@ -56,7 +56,6 @@ const products = [
     price: 280,
     stock: 4,
     description: "Plateau artisanal en zellig fais maison."
-<<<<<<< HEAD
   },
   {
 	id: 8,
@@ -74,17 +73,14 @@ const products = [
   stock: 6,
   description: "Pouf rond en cuir brodé à la main, livré non rembourré."
 }
-=======
-  }
-  {
-    id: 7,
-    name: "Babouches brodées de Fès",
-    category: "Maroquinerie",
-    price: 220,
-    stock: 12,
-    description: "Babouches brodées à la main, en cuir de Fès."
-  }
->>>>>>> 625365d (Ajout du produit Babouches brodées)
+ {
+  id: 10,
+  name: "Babouches brodées de Fès",
+  category: "Maroquinerie",
+  price: 220,
+  stock: 12,
+  description: "Babouches brodées à la main, en cuir de Fès."
+}
 ];
 
 module.exports = products;
