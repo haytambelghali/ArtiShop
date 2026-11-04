@@ -64,7 +64,15 @@ const products = [
     price: 190,
     stock: 10,
     description: "Tajine décoré de Safi"
-  }
+  },
+  {
+  id: 9,
+  name: "Pouf en cuir de Marrakech",
+  category: "Maroquinerie",
+  price: 350,
+  stock: 6,
+  description: "Pouf rond en cuir brodé à la main, livré non rembourré."
+}
 ];
 
 module.exports = products;
