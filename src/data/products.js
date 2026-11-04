@@ -56,6 +56,14 @@ const products = [
     price: 280,
     stock: 4,
     description: "Plateau artisanal en zellig fais maison."
+  },
+  {
+	id: 8,
+    name: "Tajine décoré de Safi",
+    category: "Poterie",
+    price: 190,
+    stock: 10,
+    description: "Tajine décoré de Safi"
   }
 ];
 
