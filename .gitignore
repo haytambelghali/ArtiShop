@@ -1,5 +1,6 @@
 # Dépendances (réinstallées avec npm install)
 node_modules/
+dist/
 
 # Logs
 npm-debug.log*
@@ -7,6 +8,7 @@ npm-debug.log*
 
 # Variables d'environnement
 .env
+.artishop.pid
 
 # Fichiers système
 .DS_Store
@@ -15,3 +17,4 @@ Thumbs.db
 # Éditeurs
 .vscode/
 .idea/
+
