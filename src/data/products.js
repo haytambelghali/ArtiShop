@@ -72,7 +72,7 @@ const products = [
   price: 350,
   stock: 6,
   description: "Pouf rond en cuir brodé à la main, livré non rembourré."
-}
+},
  {
   id: 10,
   name: "Babouches brodées de Fès",
