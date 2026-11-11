@@ -30,6 +30,20 @@ Le port peut être changé avec la variable d'environnement `PORT`.
 npm test
 ```
 
+## Automatisation avec Make
+
+Le `Makefile` regroupe les commandes courantes du projet :
+
+```bash
+make install
+make test
+make start PORT=3000
+make package
+```
+
+Utilisez `make help` pour afficher toutes les cibles disponibles. En intégration continue,
+`make ci` utilise `npm ci`, lance les tests et crée l'archive de livraison.
+
 ## API
 
 | Méthode | Route | Description |

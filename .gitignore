@@ -15,3 +15,5 @@ Thumbs.db
 # Éditeurs
 .vscode/
 .idea/
+dist/
+.artishop.pid
